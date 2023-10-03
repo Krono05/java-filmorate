@@ -18,7 +18,7 @@ import java.util.Map;
 @Slf4j
 public class UserController {
 
-    private final HashMap<Integer, User> userMap = new HashMap<>();
+    private final Map<Integer, User> userMap = new HashMap<>();
     int random = 0;
 
     private int generateId() {

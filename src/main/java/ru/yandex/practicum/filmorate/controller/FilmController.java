@@ -18,7 +18,7 @@ import java.util.Map;
 @Slf4j
 public class FilmController {
 
-    private final HashMap<Integer, Film> filmMap = new HashMap<>();
+    private final Map<Integer, Film> filmMap = new HashMap<>();
     int random = 0;
     private static final LocalDate MIN_RELEASE_DATE = LocalDate.parse("1895-12-28");
 
@@ -69,11 +69,7 @@ public class FilmController {
 
     @GetMapping
     public List<Film> getFilms() {
-        List<Film> filmList = new ArrayList<>();
-        for (Map.Entry<Integer, Film> entry : filmMap.entrySet()) {
-            filmList.add(entry.getValue());
-        }
-        return filmList;
+        return new ArrayList<>(filmMap.values());
     }
 
 }
