@@ -9,14 +9,14 @@ import java.time.LocalDate;
 
 @Data
 public class Film {
-    private final int id;
+    private int id;
     @NotBlank
-    private  String name;
-    @Size(max=200)
-    private  String description;
-    private  LocalDate releaseDate;
+    private String name;
+    @Size(max = 200)
+    private String description;
+    private LocalDate releaseDate;
     @PositiveOrZero
-    private  int duration;
+    private int duration;
 
     public Film(int id, String name, String description, LocalDate releaseDate, int duration) {
         this.id = id;
