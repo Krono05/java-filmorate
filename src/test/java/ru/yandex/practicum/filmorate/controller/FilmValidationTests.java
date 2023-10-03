@@ -16,15 +16,15 @@ public class FilmValidationTests {
 
     @Test
     public void shouldNotValidateIfNameIsNull() {
-        Film nullFilm = new Film(null, "Описание", LocalDate.of(2019, 8, 12), 120);
+        Film nullFilm = new Film(1, null, "Описание", LocalDate.of(2019, 8, 12), 120);
         assertThrows(ValidationException.class, () -> {
             filmController.addFilm(nullFilm);
         });
-        Film noFilm = new Film("", "Описание", LocalDate.of(2019, 8, 12), 120);
+        Film noFilm = new Film(2, "", "Описание", LocalDate.of(2019, 8, 12), 120);
         assertThrows(ValidationException.class, () -> {
             filmController.addFilm(noFilm);
         });
-        Film gapFilm = new Film(" ", "Описание", LocalDate.of(2019, 8, 12), 120);
+        Film gapFilm = new Film(3, " ", "Описание", LocalDate.of(2019, 8, 12), 120);
         assertThrows(ValidationException.class, () -> {
             filmController.addFilm(gapFilm);
         });
@@ -32,7 +32,7 @@ public class FilmValidationTests {
 
     @Test
     public void shouldNotValidateIfLongDescription() {
-        Film film = new Film("Звездные войны. эпизод IV: Новая Надежда",
+        Film film = new Film(4, "Звездные войны. эпизод IV: Новая Надежда",
                 "Идет гражданская война. Космические корабли" +
                         "повстанцев, наносящие удар с тайной базы," +
                         "одержали первую победу, в схватке" +
@@ -55,14 +55,14 @@ public class FilmValidationTests {
 
     @Test
     public void shouldNotValidateOldReleaseDate() {
-        Film film = new Film("Выход рабочих с фабрики «Люмьер»", "La sortie de l'usine Lumière à Lyon",
+        Film film = new Film(5, "Выход рабочих с фабрики «Люмьер»", "La sortie de l'usine Lumière à Lyon",
                 LocalDate.of(1895, 3, 22), 1);
         ValidationException thrown = assertThrows(ValidationException.class, () -> {
             filmController.addFilm(film);
         });
         assertEquals("Дата релиза фильма должна быть после 1895-12-28", thrown.getMessage());
 
-        Film film2 = new Film("Пограничный фильм", "",
+        Film film2 = new Film(6, "Пограничный фильм", "",
                 LocalDate.of(1895, 12, 28), 1);
         assertDoesNotThrow(() -> {
             filmController.addFilm(film2);
@@ -71,14 +71,14 @@ public class FilmValidationTests {
 
     @Test
     public void shouldNotValidateIfDurationIsNegative() {
-        Film film = new Film("Фильм с отрицательной длительностью", "такое возможно вообще?",
+        Film film = new Film(7, "Фильм с отрицательной длительностью", "такое возможно вообще?",
                 LocalDate.of(2000, 1, 1), -1);
         ValidationException thrown = assertThrows(ValidationException.class, () -> {
             filmController.addFilm(film);
         });
         assertEquals("Продолжительность фильма не может быть отрицательным.", thrown.getMessage());
 
-        Film film2 = new Film("Фильм с нулевой длительностью", "но не в секундах",
+        Film film2 = new Film(8, "Фильм с нулевой длительностью", "но не в секундах",
                 LocalDate.of(2000, 1, 1), 0);
         assertDoesNotThrow(() -> {
             filmController.addFilm(film2);
