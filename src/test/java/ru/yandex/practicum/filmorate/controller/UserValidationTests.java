@@ -15,15 +15,15 @@ public class UserValidationTests {
 
     @Test
     public void shouldNotValidateIfNullEmail() {
-        User nullEmailUser = new User(null, "krono3000", "Тамир", LocalDate.of(1998, 8, 29));
+        User nullEmailUser = new User(null, "krono3000", "Тамир", LocalDate.of(1988, 8, 29));
         assertThrows(ValidationException.class, () -> {
             userController.createUser(nullEmailUser);
         });
-        User noEmailUser = new User("", "krono3000", "Тамир", LocalDate.of(1998, 8, 29));
+        User noEmailUser = new User("", "krono3000", "Тамир", LocalDate.of(1988, 8, 29));
         assertThrows(ValidationException.class, () -> {
             userController.createUser(noEmailUser);
         });
-        User gapEmailUser = new User(" ", "krono3000", "Тамир", LocalDate.of(1998, 8, 29));
+        User gapEmailUser = new User(" ", "krono3000", "Тамир", LocalDate.of(1988, 8, 29));
         assertThrows(ValidationException.class, () -> {
             userController.createUser(gapEmailUser);
         });
@@ -31,7 +31,7 @@ public class UserValidationTests {
 
     @Test
     public void shouldNotValidateIfNoAt() {
-        User wrongEmailUser = new User("google.com", "krono3000", "Kjrjasd", LocalDate.of(1998, 8, 29));
+        User wrongEmailUser = new User("google.com", "krono3000", "Kjrjasd", LocalDate.of(1988, 8, 29));
         ValidationException thrown = assertThrows(ValidationException.class, () -> {
             userController.createUser(wrongEmailUser);
         });
@@ -40,15 +40,15 @@ public class UserValidationTests {
 
     @Test
     public void shouldNotValidateIfLoginNull() {
-        User nullLoginUser = new User("test@test.ru", null, "Тамир", LocalDate.of(1998, 8, 29));
+        User nullLoginUser = new User("test@test.ru", null, "Тамир", LocalDate.of(1988, 8, 29));
         assertThrows(ValidationException.class, () -> {
             userController.createUser(nullLoginUser);
         });
-        User noLoginUser = new User("test@test.ru", "", "Тамир", LocalDate.of(1998, 8, 29));
+        User noLoginUser = new User("test@test.ru", "", "Тамир", LocalDate.of(1988, 8, 29));
         assertThrows(ValidationException.class, () -> {
             userController.createUser(noLoginUser);
         });
-        User gapLoginUser = new User("test@test.ru", " ", "Тамир", LocalDate.of(1998, 8, 29));
+        User gapLoginUser = new User("test@test.ru", " ", "Тамир", LocalDate.of(1988, 8, 29));
         ValidationException thrown = assertThrows(ValidationException.class, () -> {
             userController.createUser(gapLoginUser);
         });
@@ -57,14 +57,14 @@ public class UserValidationTests {
 
     @Test
     public void shouldReplaceNameWithLogin() {
-        User noNameUser = new User("test@test.ru", "krono3000", "", LocalDate.of(1998, 8, 29));
+        User noNameUser = new User("test@test.ru", "krono3000", "", LocalDate.of(1988, 8, 29));
         User createdUser = userController.createUser(noNameUser);
         assertEquals(createdUser.getName(), "krono3000");
     }
 
     @Test
     public void shouldNotValidateIfBirthdayInFuture() {
-        User user = new User("test@test.ru", "krono3000", "Тамир", LocalDate.of(2023, 3, 29));
+        User user = new User("test@test.ru", "krono3000", "Тамир", LocalDate.of(2024, 3, 29));
         ValidationException thrown = assertThrows(ValidationException.class, () -> {
             userController.createUser(user);
         });
