@@ -67,10 +67,6 @@ public class UserController {
 
     @GetMapping
     public List<User> getUsers() {
-        List<User> userList = new ArrayList<>();
-        for (Map.Entry<Integer, User> entry : userMap.entrySet()) {
-            userList.add(entry.getValue());
-        }
-        return userList;
+        return new ArrayList<>(userMap.values());
     }
 }
