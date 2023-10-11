@@ -16,6 +16,7 @@ public class UserService {
 
     private final UserStorage userStorage;
     int random = 0;
+
     public UserService(UserStorage userStorage) {
         this.userStorage = userStorage;
     }
