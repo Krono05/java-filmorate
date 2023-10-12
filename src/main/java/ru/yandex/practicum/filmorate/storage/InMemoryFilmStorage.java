@@ -9,7 +9,6 @@ import ru.yandex.practicum.filmorate.model.Film;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @Slf4j
@@ -38,7 +37,6 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public List<Film> getFilms() {
-
         return new ArrayList<>(filmMap.values());
 
     }
