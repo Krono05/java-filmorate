@@ -43,22 +43,22 @@ public class UserService {
     public void addFriend(int id, int friendId) {
         User user = userStorage.getUserById(id);
         User friend = userStorage.getUserById(friendId);
-        user.getFriends().add(friendId);
-        friend.getFriends().add(id);
+        user.getFriendsId().add(friendId);
+        friend.getFriendsId().add(id);
         log.info("Пользователи с ID {} и {} теперь друзья", id, friendId);
     }
 
     public void deleteFriend(int id, int friendId) {
-        userStorage.getUserById(id).getFriends().remove(friendId);
-        userStorage.getUserById(friendId).getFriends().remove(id);
+        userStorage.getUserById(id).getFriendsId().remove(friendId);
+        userStorage.getUserById(friendId).getFriendsId().remove(id);
         log.info("Пользователи с ID {} и {} больше не друзья", id, friendId);
     }
 
     public List<User> getFriends(int id) {
         List<User> friends = new ArrayList<>();
         User user = userStorage.getUserById(id);
-        if (user.getFriends() != null) {
-            for (int userId : user.getFriends()) {
+        if (user.getFriendsId() != null) {
+            for (int userId : user.getFriendsId()) {
                 friends.add(userStorage.getUserById(userId));
             }
         }
@@ -69,8 +69,8 @@ public class UserService {
         List<User> commonFriends = new ArrayList<>();
         User user = userStorage.getUserById(id);
         User friends = userStorage.getUserById(friendId);
-        for (Integer friend : user.getFriends()) {
-            if (friends.getFriends().contains(friend)) {
+        for (Integer friend : user.getFriendsId()) {
+            if (friends.getFriendsId().contains(friend)) {
                 commonFriends.add(userStorage.getUserById(friend));
             }
         }

@@ -38,11 +38,9 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public List<Film> getFilms() {
-        List<Film> filmList = new ArrayList<>();
-        for (Map.Entry<Integer, Film> entry : filmMap.entrySet()) {
-            filmList.add(entry.getValue());
-        }
-        return filmList;
+
+        return new ArrayList<>(filmMap.values());
+
     }
 
     @Override
