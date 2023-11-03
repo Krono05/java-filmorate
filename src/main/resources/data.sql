@@ -34,43 +34,43 @@ MERGE INTO mpa_rating
             VALUES ('NC-17');
 
 MERGE INTO genre
-    USING (SELECT CAST('Comedy' AS varchar)) AS c (name)
+    USING (SELECT CAST('Комедия' AS varchar)) AS c (name)
     ON (genre.name = c.name)
     WHEN NOT MATCHED THEN
         INSERT (name)
-            VALUES ('Comedy');
+            VALUES ('Комедия');
 
 MERGE INTO genre
-    USING (SELECT CAST('Drama' AS varchar)) AS d (name)
+    USING (SELECT CAST('Драма' AS varchar)) AS d (name)
     ON (genre.name = d.name)
     WHEN NOT MATCHED THEN
         INSERT (name)
-            VALUES ('Drama');
+            VALUES ('Драма');
 
 MERGE INTO genre
-    USING (SELECT CAST('Cartoon' AS varchar)) AS h (name)
+    USING (SELECT CAST('Мультфильм' AS varchar)) AS h (name)
     ON (genre.name = h.name)
     WHEN NOT MATCHED THEN
         INSERT (name)
-            VALUES ('Cartoon');
+            VALUES ('Мультфильм');
 
 MERGE INTO genre
-    USING (SELECT CAST('Triller' AS varchar)) AS a (name)
+    USING (SELECT CAST('Триллер' AS varchar)) AS a (name)
     ON (genre.name = a.name)
     WHEN NOT MATCHED THEN
         INSERT (name)
-            VALUES ('Triller');
+            VALUES ('Триллер');
 
 MERGE INTO genre
-    USING (SELECT CAST('Documentary' AS varchar)) AS t (name)
+    USING (SELECT CAST('Документальный' AS varchar)) AS t (name)
     ON (genre.name = t.name)
     WHEN NOT MATCHED THEN
         INSERT (name)
-            VALUES ('Documentary');
+            VALUES ('Документальный');
 
 MERGE INTO genre
-    USING (SELECT CAST('Action' AS varchar)) AS t (name)
+    USING (SELECT CAST('Боевик' AS varchar)) AS t (name)
     ON (genre.name = t.name)
     WHEN NOT MATCHED THEN
         INSERT (name)
-            VALUES ('Action');
+            VALUES ('Боевик');

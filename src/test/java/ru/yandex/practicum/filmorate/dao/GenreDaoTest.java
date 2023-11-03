@@ -53,7 +53,7 @@ public class GenreDaoTest {
     @Test
     public void shouldReturnGenreById() {
         Genre genre = genreDao.getGenreById(1);
-        assertEquals("Comedy", genre.getName());
+        assertEquals("Комедия", genre.getName());
     }
 
     @Test
@@ -66,7 +66,7 @@ public class GenreDaoTest {
         List<Genre> genreList = genreDao.getGenresByFilm(1);
 
         assertThat(genreList.size()).isEqualTo(2);
-        assertEquals("Cartoon", genreList.get(0).getName());
+        assertEquals("Мультфильм", genreList.get(0).getName());
     }
 
     @Test
