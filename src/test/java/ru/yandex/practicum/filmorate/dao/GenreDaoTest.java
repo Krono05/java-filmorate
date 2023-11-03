@@ -21,6 +21,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -56,8 +57,7 @@ public class GenreDaoTest {
     @Test
     public void shouldReturnGenreById() {
         Genre genre = genreDao.getGenreById(1);
-
-        assertThat(genre).hasFieldOrPropertyWithValue("name", "Комедия");
+        assertEquals("Comedy", genre.getName());
     }
 
     @Test
@@ -70,7 +70,7 @@ public class GenreDaoTest {
         List<Genre> genreList = genreDao.getGenresByFilm(1);
 
         assertThat(genreList.size()).isEqualTo(2);
-        assertThat(genreList.get(0)).hasFieldOrPropertyWithValue("name", "Мультфильм");
+        assertEquals("Cartoon", genreList.get(0).getName());
     }
 
     @Test

@@ -1,5 +1,3 @@
--- Так как в H2 не работает ON CONFLICT DO NOTHING, ON DUPLICATE... пришлось составить для каждого такие запросы
-
 MERGE INTO mpa_rating
 USING (SELECT CAST('G' AS varchar)) AS g (name)
 ON (mpa_rating.name = g.name)
@@ -36,43 +34,43 @@ WHEN NOT MATCHED THEN
     VALUES ('NC-17');
 
 MERGE INTO genre
-USING (SELECT CAST('Комедия' AS varchar)) AS c (name)
+USING (SELECT CAST('Comedy' AS varchar)) AS c (name)
 ON (genre.name = c.name)
 WHEN NOT MATCHED THEN
     INSERT (name)
-    VALUES ('Комедия');
+    VALUES ('Comedy');
 
 MERGE INTO genre
-USING (SELECT CAST('Драма' AS varchar)) AS d (name)
+USING (SELECT CAST('Drama' AS varchar)) AS d (name)
 ON (genre.name = d.name)
 WHEN NOT MATCHED THEN
     INSERT (name)
-    VALUES ('Драма');
+    VALUES ('Drama');
 
 MERGE INTO genre
-USING (SELECT CAST('Мультфильм' AS varchar)) AS h (name)
+USING (SELECT CAST('Cartoon' AS varchar)) AS h (name)
 ON (genre.name = h.name)
 WHEN NOT MATCHED THEN
     INSERT (name)
-    VALUES ('Мультфильм');
+    VALUES ('Cartoon');
 
 MERGE INTO genre
-USING (SELECT CAST('Триллер' AS varchar)) AS a (name)
+USING (SELECT CAST('Triller' AS varchar)) AS a (name)
 ON (genre.name = a.name)
 WHEN NOT MATCHED THEN
     INSERT (name)
-    VALUES ('Триллер');
+    VALUES ('Triller');
 
 MERGE INTO genre
-USING (SELECT CAST('Документальный' AS varchar)) AS t (name)
+USING (SELECT CAST('Documentary' AS varchar)) AS t (name)
 ON (genre.name = t.name)
 WHEN NOT MATCHED THEN
     INSERT (name)
-    VALUES ('Документальный');
+    VALUES ('Documentary');
 
 MERGE INTO genre
-USING (SELECT CAST('Боевик' AS varchar)) AS t (name)
+USING (SELECT CAST('Action' AS varchar)) AS t (name)
 ON (genre.name = t.name)
 WHEN NOT MATCHED THEN
     INSERT (name)
-    VALUES ('Боевик');
+    VALUES ('Action');
