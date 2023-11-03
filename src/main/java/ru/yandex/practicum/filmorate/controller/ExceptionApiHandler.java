@@ -32,7 +32,7 @@ public class ExceptionApiHandler {
     }
 
     @ExceptionHandler(GenreNotFoundException.class)
-    public ResponseEntity<ErrorResponse> GenreNotFoundException(GenreNotFoundException exception) {
+    public ResponseEntity<ErrorResponse> genreNotFoundException(GenreNotFoundException exception) {
         log.debug(exception.getMessage());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -40,7 +40,7 @@ public class ExceptionApiHandler {
     }
 
     @ExceptionHandler(MpaNotFoundException.class)
-    public ResponseEntity<ErrorResponse> MpaNotFoundException(MpaNotFoundException exception) {
+    public ResponseEntity<ErrorResponse> mpaNotFoundException(MpaNotFoundException exception) {
         log.debug(exception.getMessage());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
