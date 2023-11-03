@@ -10,16 +10,16 @@ import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
 
 @Service
 @Slf4j
 public class FilmService {
 
+    private static final LocalDate MIN_RELEASE_DATE = LocalDate.parse("1895-12-28");
     private final FilmStorage filmStorage;
     private final UserStorage userStorage;
     private final FilmLikesDao filmLikesDao;
-    private static final LocalDate MIN_RELEASE_DATE = LocalDate.parse("1895-12-28");
     int random = 0;
 
     @Autowired

@@ -7,5 +7,6 @@ import java.util.List;
 public interface MpaRatingDao {
 
     List<MpaRating> getAllMpa();
+
     MpaRating getMpaById(int id);
 }

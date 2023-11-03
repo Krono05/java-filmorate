@@ -17,7 +17,8 @@ import ru.yandex.practicum.filmorate.model.User;
 import java.time.LocalDate;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -63,13 +64,13 @@ public class FilmLikesDaoTest {
 
     @Test
     public void shouldAddLike() {
-        filmLikesDao.addLike(1,1);
+        filmLikesDao.addLike(1, 1);
         assertThat(filmDbStorage.getFilmById(1).getLikes().size()).isEqualTo(1);
     }
 
     @Test
     public void shouldDeleteLike() {
-        filmLikesDao.addLike(2,1);
+        filmLikesDao.addLike(2, 1);
         filmLikesDao.deleteLike(2, 1);
 
         assertThat(filmDbStorage.getFilmById(2).getLikes().isEmpty()).isTrue();
@@ -83,7 +84,7 @@ public class FilmLikesDaoTest {
 
     @Test
     public void shouldReturnUsersWhoLikedFilm() {
-        filmLikesDao.addLike(2,1);
+        filmLikesDao.addLike(2, 1);
         filmLikesDao.addLike(2, 2);
         Set<Integer> userSet = filmLikesDao.findLikesOfFilm(2);
 

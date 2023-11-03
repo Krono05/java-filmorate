@@ -11,7 +11,8 @@ import ru.yandex.practicum.filmorate.model.MpaRating;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @SpringBootTest
 @AutoConfigureTestDatabase

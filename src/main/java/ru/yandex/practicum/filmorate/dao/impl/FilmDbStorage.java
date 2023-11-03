@@ -21,7 +21,11 @@ import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Component
 @Slf4j
@@ -75,7 +79,7 @@ public class FilmDbStorage implements FilmStorage {
             throw new FilmNotFoundException("Фильм с ID " + film.getId() + " не найден!");
         }
 
-        if(film.getGenres() == null || film.getGenres().isEmpty()) {
+        if (film.getGenres() == null || film.getGenres().isEmpty()) {
             filmGenreDao.deleteGenre(film.getId());
             log.debug("Обновлен фильм с id={}", film.getId());
             return film;
@@ -123,7 +127,7 @@ public class FilmDbStorage implements FilmStorage {
     }
 
 
-    private Film mapToRowFilm (ResultSet rs, int rowNum) throws SQLException {
+    private Film mapToRowFilm(ResultSet rs, int rowNum) throws SQLException {
         MpaRating mpa = mpaRating.getMpaById(rs.getInt("mpa_rating_id"));
         List<Genre> genre = new ArrayList<>(genreDao.getGenresByFilm(rs.getInt("film_id")));
         Set<Integer> likes = filmLikesDao.findLikesOfFilm(rs.getInt("film_id"));

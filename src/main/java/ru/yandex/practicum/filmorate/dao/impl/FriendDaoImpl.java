@@ -53,7 +53,7 @@ public class FriendDaoImpl implements FriendDao {
         String sqlQueryFind = "SELECT status FROM friends WHERE user_id1 = ? AND user_id2 = ? OR user_id2 = ? AND user_id1 = ?";
         List<Boolean> statusList = jdbcTemplate.queryForList(sqlQueryFind, Boolean.class, id, friendId, id, friendId);
 
-        if(!statusList.isEmpty()) {
+        if (!statusList.isEmpty()) {
             Boolean status = statusList.get(0);
 
             if (!status) {
@@ -92,11 +92,11 @@ public class FriendDaoImpl implements FriendDao {
 
     private Friend mapToRowFriend(ResultSet rs, int rowNum) throws SQLException {
         return new Friend(rs.getInt("user_id1"),
-                        rs.getInt("user_id2"),
-                        rs.getBoolean("status"));
+                rs.getInt("user_id2"),
+                rs.getBoolean("status"));
     }
 
-    private User mapToRowUser (ResultSet rs, int rowNum) throws SQLException {
+    private User mapToRowUser(ResultSet rs, int rowNum) throws SQLException {
         return User.builder()
                 .id(rs.getInt("user_id"))
                 .email(rs.getString("email"))
