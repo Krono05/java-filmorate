@@ -82,10 +82,13 @@ public class FriendDaoImpl implements FriendDao {
 
     @Override
     public List<User> findCommonFriends(int id, int friendId) {
-        String sqlQuery = "SELECT * FROM users WHERE user_id IN (SELECT CASE " +
-                "WHEN (user_id1 = ? AND user_id2 != ?) THEN user_id2 WHEN (user_id1 != ? AND user_id2 = ?) THEN user_id1 " +
-                "END FROM friends INTERSECT SELECT CASE WHEN (user_id1 = ? AND user_id2 != ?) THEN user_id2 " +
-                "WHEN (user_id1 != ? AND user_id2 = ?) THEN user_id1 END FROM friends)";
+//        String sqlQuery = "SELECT * FROM users WHERE user_id IN (SELECT CASE " +
+//                "WHEN (user_id1 = ? AND user_id2 != ?) THEN user_id2 WHEN (user_id1 != ? AND user_id2 = ?) THEN user_id1 " +
+//                "END FROM friends INTERSECT SELECT CASE WHEN (user_id1 = ? AND user_id2 != ?) THEN user_id2 " +
+//                "WHEN (user_id1 != ? AND user_id2 = ?) THEN user_id1 END FROM friends)";
+        String sqlQuery = "SELECT * FROM users WHERE user_id IN(" +
+                "SELECT friend_id FROM friends WHERE user_id = ?) " +
+                "AND user_id IN(SELECT friend_id FROM friends WHERE user_id = ?)";
         log.info("Запрошен список общих друзей ID {} и ID {} из БД", id, friendId);
         return jdbcTemplate.query(sqlQuery, this::mapToRowUser, id, friendId, friendId, id, friendId, id, id, friendId);
     }
