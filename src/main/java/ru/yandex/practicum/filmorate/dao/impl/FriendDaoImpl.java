@@ -82,15 +82,13 @@ public class FriendDaoImpl implements FriendDao {
 
     @Override
     public List<User> findCommonFriends(int id, int friendId) {
-        String sqlQuery = "SELECT DISTINCT u.* " +
-                "FROM users u " +
-                "INNER JOIN friends f1 ON (u.user_id = f1.user_id1 AND f1.user_id2 = ?) OR (u.user_id = f1.user_id2 AND f1.user_id1 = ?) " +
-                "INNER JOIN friends f2 ON (u.user_id = f2.user_id1 AND f2.user_id2 = ?) OR (u.user_id = f2.user_id2 AND f2.user_id1 = ?) " +
-                "WHERE (f1.user_id1 = f2.user_id1 AND f1.user_id2 = f2.user_id2) OR (f1.user_id1 = f2.user_id2 AND f1.user_id2 = f2.user_id1)";
+        String sqlQuery = "SELECT u.* FROM users u " +
+                "INNER JOIN friends f1 ON u.user_id = f1.user_id2 AND f1.user_id1 = ? " +
+                "INNER JOIN friends f2 ON u.user_id = f2.user_id2 AND f2.user_id1 = ?";
 
         log.info("Requested list of common friends for ID {} and ID {} from the database", id, friendId);
 
-        return jdbcTemplate.query(sqlQuery, this::mapToRowUser, friendId, id, friendId, id);
+        return jdbcTemplate.query(sqlQuery, this::mapToRowUser, id, friendId);
     }
 
     private Friend mapToRowFriend(ResultSet rs, int rowNum) throws SQLException {
