@@ -80,18 +80,41 @@ public class FriendDaoImpl implements FriendDao {
         return jdbcTemplate.query(sqlQuery, this::mapToRowUser, id, id);
     }
 
+//    @Override
+//    public List<User> findCommonFriends(int id, int friendId) {
+////        String sqlQuery = "SELECT * FROM users WHERE user_id IN (SELECT CASE " +
+////                "WHEN (user_id1 = ? AND user_id2 != ?) THEN user_id2 WHEN (user_id1 != ? AND user_id2 = ?) THEN user_id1 " +
+////                "END FROM friends INTERSECT SELECT CASE WHEN (user_id1 = ? AND user_id2 != ?) THEN user_id2 " +
+////                "WHEN (user_id1 != ? AND user_id2 = ?) THEN user_id1 END FROM friends)";
+//        String sqlQuery = "SELECT DISTINCT u.* FROM users u " +
+//                "INNER JOIN friends f1 ON (u.user_id = f1.user_id1 AND f1.user_id2 = ?) OR (u.user_id = f1.user_id2 AND f1.user_id1 = ?) " +
+//                "INNER JOIN friends f2 ON ((u.user_id = f2.user_id1 AND f2.user_id2 = ?) OR (u.user_id = f2.user_id2 AND f2.user_id1 = ?)) " +
+//                "WHERE (f1.user_id1 = f2.user_id1 AND f1.user_id2 = f2.user_id2) OR (f1.user_id1 = f2.user_id2 AND f1.user_id2 = f2.user_id1)";
+//
+////        String sqlQuery = "SELECT u.* " +
+////                "FROM users u " +
+////                "INNER JOIN friends f1 ON (u.user_id = f1.user_id1 AND f1.user_id2 != ?) " +
+////                "OR (u.user_id = f1.user_id2 AND f1.user_id1 != ?) " +
+////                "INNER JOIN friends f2 ON ((u.user_id = f2.user_id1 AND f2.user_id2 != ?) " +
+////                "OR (u.user_id = f2.user_id2 AND f2.user_id1 != ?)) " +
+////                "WHERE f1.user_id1 = f2.user_id1 AND f1.user_id2 = f2.user_id2;";
+////        String sqlQuery = "SELECT * FROM users WHERE user_id IN(" +
+////                "SELECT friend_id FROM friends WHERE user_id = ?) " +
+////                "AND user_id IN(SELECT friend_id FROM friends WHERE user_id = ?)";
+//        log.info("Запрошен список общих друзей ID {} и ID {} из БД", id, friendId);
+//        return jdbcTemplate.query(sqlQuery, this::mapToRowUser, id, friendId, friendId, id, friendId, id, id, friendId);
+//    }
     @Override
     public List<User> findCommonFriends(int id, int friendId) {
-//        String sqlQuery = "SELECT * FROM users WHERE user_id IN (SELECT CASE " +
-//                "WHEN (user_id1 = ? AND user_id2 != ?) THEN user_id2 WHEN (user_id1 != ? AND user_id2 = ?) THEN user_id1 " +
-//                "END FROM friends INTERSECT SELECT CASE WHEN (user_id1 = ? AND user_id2 != ?) THEN user_id2 " +
-//                "WHEN (user_id1 != ? AND user_id2 = ?) THEN user_id1 END FROM friends)";
-        String sqlQuery = "SELECT * FROM users WHERE user_id IN(" +
-                "SELECT friend_id FROM friends WHERE user_id = ?) " +
-                "AND user_id IN(SELECT friend_id FROM friends WHERE user_id = ?)";
-        log.info("Запрошен список общих друзей ID {} и ID {} из БД", id, friendId);
-        return jdbcTemplate.query(sqlQuery, this::mapToRowUser, id, friendId, friendId, id, friendId, id, id, friendId);
-    }
+        String sqlQuery = "SELECT DISTINCT u.* " +
+                "FROM users u " +
+                "INNER JOIN friends f1 ON (u.user_id = f1.user_id1 AND f1.user_id2 = ?) OR (u.user_id = f1.user_id2 AND f1.user_id1 = ?) " +
+                "INNER JOIN friends f2 ON (u.user_id = f2.user_id1 AND f2.user_id2 = ?) OR (u.user_id = f2.user_id2 AND f2.user_id1 = ?) " +
+                "WHERE (f1.user_id1 = f2.user_id1 AND f1.user_id2 = f2.user_id2) OR (f1.user_id1 = f2.user_id2 AND f1.user_id2 = f2.user_id1)";
+
+        log.info("Requested list of common friends for ID {} and ID {} from the database", id, friendId);
+
+        return jdbcTemplate.query(sqlQuery, this::mapToRowUser, friendId, id, friendId, id);}
 
     private Friend mapToRowFriend(ResultSet rs, int rowNum) throws SQLException {
         return new Friend(rs.getInt("user_id1"),
