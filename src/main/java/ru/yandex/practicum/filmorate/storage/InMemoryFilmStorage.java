@@ -7,8 +7,11 @@ import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -37,8 +40,11 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     @Override
     public List<Film> getFilms() {
-        return new ArrayList<>(filmMap.values());
-
+        List<Film> filmList = new ArrayList<>();
+        for (Map.Entry<Integer, Film> entry : filmMap.entrySet()) {
+            filmList.add(entry.getValue());
+        }
+        return filmList;
     }
 
     @Override
@@ -49,5 +55,14 @@ public class InMemoryFilmStorage implements FilmStorage {
             log.warn("Не найден фильм при поиске по ID.");
             throw new FilmNotFoundException("Фильм с ID: " + id + " не существует.");
         }
+    }
+
+    @Override
+    public List<Film> getTopRatedFilms(Integer count) {
+        List<Film> films = getFilms();
+        return films.stream()
+                .sorted(Collections.reverseOrder(Film.COMPARE_BY_LIKES))
+                .limit(count)
+                .collect(Collectors.toList());
     }
 }
